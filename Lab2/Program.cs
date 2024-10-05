@@ -96,7 +96,10 @@ namespace Lab2
 
             while (T > FINAL_TEMPERATURE && bestSolution.Energy != 0)
             {
-                for (int i = 0; )
+                for (int i = 0; i < ITERATION_COUNT; i++)
+                {
+
+                }
             }
 
         }
