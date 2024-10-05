@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
 
 namespace Lab2
 {
@@ -13,6 +12,7 @@ namespace Lab2
         public Solution(List<int> vector)
         {
             this.Vector = vector;
+            this.DefineEnergy();
         }
 
         private void DefineEnergy()
@@ -43,6 +43,7 @@ namespace Lab2
             var buffer = this.Vector[first];
             this.Vector[first] = this.Vector[second];
             this.Vector[second] = buffer;
+            this.DefineEnergy();
         }
 
         public void Show()
@@ -53,6 +54,12 @@ namespace Lab2
                 List<char> row = Enumerable.Repeat('_', this.Vector.Count).ToList();
                 row[queen] = 'Q';
                 result.Add(row);
+            }
+            foreach (var row in result)
+            {
+                Console.Write("\n");
+                foreach (var item in row)
+                    Console.Write(item.ToString());
             }
         }
 
@@ -66,6 +73,8 @@ namespace Lab2
             }
             return copy;
 
+
+
         }
     }
     #endregion
@@ -77,16 +86,16 @@ namespace Lab2
     internal class Program
     {
         #region Constants
-        const int N = 10;
-        const double INITIAL_TEMPERATURE = 30.0;
-        const double FINAL_TEMPERATURE = 0.5;
-        const double ALFA = 0.97;
-        const int ITERATION_COUNT = 100;
+        private const int N = 200;
+        private const double INITIAL_TEMPERATURE = 30.0;
+        private const double FINAL_TEMPERATURE = 0.01;
+        private const double ALFA = 0.98;
+        private const int ITERATION_COUNT = 100;
         #endregion
 
         private static Random random = new Random();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Solution currentSolution = new Solution(Enumerable.Range(0, N).ToList());
             Solution workingSolution = currentSolution.DeepCopy();
@@ -97,7 +106,6 @@ namespace Lab2
             {
                 return Math.Exp(-(workingSolution.Energy - currentSolution.Energy) / temperature);
             }
-
             while (T > FINAL_TEMPERATURE && bestSolution.Energy != 0)
             {
                 for (int i = 0; i < ITERATION_COUNT; i++)
@@ -117,7 +125,7 @@ namespace Lab2
                         if (currentSolution.Energy < bestSolution.Energy)
                         {
                             bestSolution = currentSolution.DeepCopy();
-                        }    
+                        }
                     }
                     else
                     {
@@ -127,6 +135,7 @@ namespace Lab2
                 Console.WriteLine($"T = {Math.Round(T, 7)} | Энергия = {bestSolution.Energy}");
                 T *= ALFA;
             }
+            bestSolution.Show();
 
         }
     }
