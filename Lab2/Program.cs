@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
 
 namespace Lab2
 {
@@ -82,10 +83,8 @@ namespace Lab2
         const double ALFA = 0.97;
         const int ITERATION_COUNT = 100;
         #endregion
-        double EvaluateSolution(Solution workingSolution, Solution currentSolution, double temperature)
-        {
-            return Math.Exp(-(workingSolution.Energy - currentSolution.Energy) / temperature);
-        }
+
+        private static Random random = new Random();
 
         static void Main(string[] args)
         {
@@ -94,12 +93,39 @@ namespace Lab2
             Solution bestSolution = currentSolution.DeepCopy();
             double T = INITIAL_TEMPERATURE;
 
+            double EvaluateSolution(Solution workingSolution, Solution currentSolution, double temperature)
+            {
+                return Math.Exp(-(workingSolution.Energy - currentSolution.Energy) / temperature);
+            }
+
             while (T > FINAL_TEMPERATURE && bestSolution.Energy != 0)
             {
                 for (int i = 0; i < ITERATION_COUNT; i++)
                 {
-
+                    workingSolution.Swap();
+                    if (workingSolution.Energy <= currentSolution.Energy)
+                    {
+                        currentSolution = workingSolution.DeepCopy();
+                        if (currentSolution.Energy < bestSolution.Energy)
+                        {
+                            bestSolution = currentSolution.DeepCopy();
+                        }
+                    }
+                    else if (random.NextDouble() < EvaluateSolution(workingSolution, currentSolution, T))
+                    {
+                        currentSolution = workingSolution.DeepCopy();
+                        if (currentSolution.Energy < bestSolution.Energy)
+                        {
+                            bestSolution = currentSolution.DeepCopy();
+                        }    
+                    }
+                    else
+                    {
+                        workingSolution = currentSolution.DeepCopy();
+                    }
                 }
+                Console.WriteLine($"T = {Math.Round(T, 7)} | Энергия = {bestSolution.Energy}");
+                T *= ALFA;
             }
 
         }
