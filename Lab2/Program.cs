@@ -199,9 +199,6 @@ namespace Lab2
                 T *= ALFA;
             }
             bestSolution.Show();
-
         }
-
-
     }
 }
