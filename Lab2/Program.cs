@@ -16,7 +16,7 @@ namespace Lab2
         #endregion
         public class Solution
         {
-            public double Energy { get; set; }
+            public int Energy { get; set; }
             public List<int[]> Edges { get; set; }
             public int[] Vector { get; set; }
 
@@ -27,13 +27,10 @@ namespace Lab2
                 // Генерация начального решения
                 for (int i = 0; i < this.Edges.Count; i++)
                 {
-                    //if (this.Edges[i][1] != N - 1)
-                        this.Vector[i] = this.Edges[i][2];
-                    //else this.Vector[i] = 0;
+                    this.Vector[i] = this.Edges[i][2];
                 }
                 this.DefineEnergy();
             }
-
             private void DefineEnergy()
             {
                 int energy = 0;
@@ -45,11 +42,11 @@ namespace Lab2
                     {
                         if (this.Edges[j][0] == i)
                         {
-                            inputs += this.Vector[i];
+                            outputs += this.Vector[j];
                         }
                         else if (this.Edges[j][1] == i)
                         {
-                            outputs += this.Vector[i];
+                            inputs += this.Vector[j];
                         }
                     }
                     energy += Math.Abs(inputs - outputs);
@@ -61,7 +58,7 @@ namespace Lab2
             {
                 Random random = new Random();
                 int index = random.Next(0, this.Edges.Count);
-                this.Vector[index] = random.Next(0, this.Edges[index][2]);
+                this.Vector[index] = random.Next(0, this.Edges[index][2] + 1);
                 this.DefineEnergy();
             }
 
@@ -113,7 +110,7 @@ namespace Lab2
                 // Заполняем остальные элементы матрицы случайными весами
                 for (int i = 0; i < n; i++)
                 {
-                    for (int j = 0; j < n; j++)
+                    for (int j = i; j < n; j++)
                     {
                         if (random.Next(2) == 1 && i != j && j != i + 1 && i != n - 1 && j != 0) // С вероятностью 0.5 добавляем ребро
                         {
@@ -175,6 +172,7 @@ namespace Lab2
                 for (int i = 0; i < ITERATION_COUNT; i++)
                 {
                     workingSolution.Randomize();
+                    
                     if (workingSolution.Energy <= currentSolution.Energy)
                     {
                         currentSolution = workingSolution.DeepCopy();
@@ -197,6 +195,7 @@ namespace Lab2
                     }
                 }
                 Console.WriteLine($"T = {Math.Round(T, 7)} | Энергия = {bestSolution.Energy}");
+                //currentSolution.Show();
                 T *= ALFA;
             }
             bestSolution.Show();
