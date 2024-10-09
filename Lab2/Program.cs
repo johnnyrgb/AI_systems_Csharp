@@ -8,7 +8,7 @@ namespace Lab2
     internal class Program
     {
         #region Constants
-        private const int N = 25;
+        private const int N = 10;
         private const double INITIAL_TEMPERATURE = 30.0;
         private const double FINAL_TEMPERATURE = 0.05;
         private const double ALFA = 0.98;
@@ -63,6 +63,14 @@ namespace Lab2
                 int index = random.Next(0, this.Edges.Count);
                 this.Vector[index] = random.Next(0, this.Edges[index][2]);
                 this.DefineEnergy();
+            }
+
+            public void Show()
+            {
+                for (int i = 0; i < this.Edges.Count; i++)
+                {
+                    Console.WriteLine($"{this.Edges[i][0]} ---> {this.Edges[i][1]} = {this.Vector[i]}");
+                }
             }
 
             public Solution DeepCopy()
@@ -191,6 +199,7 @@ namespace Lab2
                 Console.WriteLine($"T = {Math.Round(T, 7)} | Энергия = {bestSolution.Energy}");
                 T *= ALFA;
             }
+            bestSolution.Show();
 
         }
 
