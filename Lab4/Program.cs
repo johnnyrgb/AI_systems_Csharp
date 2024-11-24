@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Text.Json.Nodes;
 
 namespace Lab4
 {
@@ -55,14 +53,14 @@ namespace Lab4
                         bestFlow = tourFlow;
                         bestTour = new List<int>(tour);
                     }
-                    
+
                     Console.WriteLine($"\nМуравей {ant}");
                     foreach (var city in tour)
                     {
-                        
+
                         Console.Write($"{city} ");
                     }
-                    Console.Write($"| {tourFlow}");  
+                    Console.Write($"| {tourFlow}");
 
                 }
 
@@ -123,7 +121,7 @@ namespace Lab4
         private double CalculateTourFlow(List<int> tour)
         {
             double flow = Double.MaxValue;
-            
+
             for (int i = 0; i < tour.Count - 1; i++) // Считаем длину пути
             {
                 if (_capacities[tour[i], tour[i + 1]] < flow)

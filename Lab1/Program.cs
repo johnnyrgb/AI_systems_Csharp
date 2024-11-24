@@ -90,7 +90,7 @@ namespace Lab1
         private const double INITIAL_TEMPERATURE = 30.0;
         private const double FINAL_TEMPERATURE = 0.01;
         private const double ALFA = 0.98;
-        private const int ITERATION_COUNT = 100; 
+        private const int ITERATION_COUNT = 100;
         #endregion
 
         private static Random random = new Random();

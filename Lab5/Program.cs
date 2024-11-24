@@ -1,27 +1,24 @@
-﻿using System;
-
-namespace Lab5
+﻿namespace Lab5
 {
-    class Program
+    internal class Program
     {
-        const int MaxItems = 11; // Максимальное количество товаров
-        const int MaxClients = 10; // Максимальное количество клиентов
-        const int MaxClusters = 5; // Максимальное количество кластеров
-        const double Beta = 1.0; // Параметр для расчета сходства
-        const double Rho = 0.9; // Порог сходства для определения, можно ли добавить клиента в кластер
+        private const int MaxItems = 11; // Максимальное количество товаров
+        private const int MaxClients = 10; // Максимальное количество клиентов
+        private const int MaxClusters = 5; // Максимальное количество кластеров
+        private const double Beta = 1.0; // Параметр для расчета сходства
+        private const double Rho = 0.9; // Порог сходства для определения, можно ли добавить клиента в кластер
 
-        int[][] clusters = new int[MaxClusters][]; // Прототипы кластеров
-        int[][] vectorSum = new int[MaxClusters][]; // Сумма всех векторов внутри кластера (популярность элемента в кластере)
-        int[] members = new int[MaxClusters]; // Количество членов в каждом кластере
-        int[] group = new int[MaxClients]; // Индекс кластера для каждого клиента
-        int N; // Общее количество кластеров
-        readonly string[] ItemName =
+        private int[][] clusters = new int[MaxClusters][]; // Прототипы кластеров
+        private int[][] vectorSum = new int[MaxClusters][]; // Сумма всех векторов внутри кластера (популярность элемента в кластере)
+        private int[] members = new int[MaxClusters]; // Количество членов в каждом кластере
+        private int[] group = new int[MaxClients]; // Индекс кластера для каждого клиента
+        private int N; // Общее количество кластеров
+        private readonly string[] ItemName =
         {
             "Молоток", "Бумага", "Шоколадка", "Отвёртка", "Ручка",
             "Кофе", "Гвоздодёр", "Карандаш", "Конфеты", "Дрель", "Дырокол"
         };
-
-        int[][] Data = // Покупки клиентов, 1 - купил, 0 - не купил
+        private int[][] Data = // Покупки клиентов, 1 - купил, 0 - не купил
         {
             new int[] {0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0 },
             new int[] {0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1 },
@@ -35,7 +32,7 @@ namespace Lab5
             new int[] {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0 },
         };
 
-        void Initialize()
+        private void Initialize()
         {
             clusters = new int[MaxClusters][]; // Инициализация массива кластеров
 
@@ -71,7 +68,7 @@ namespace Lab5
             }
         }
 
-        static int[] AndVectors(int[] V, int[] W) // Выполенение логического И для двух векторов
+        private static int[] AndVectors(int[] V, int[] W) // Выполенение логического И для двух векторов
         {
             int[] resultVector = new int[MaxItems];
             for (int i = 0; i < MaxItems; i++)
@@ -89,9 +86,9 @@ namespace Lab5
 
             return resultVector;
         }
-        
+
         // Обновление данных о кластере с индексом K на основе данных клиентов, принадлежащих этому кластеру
-        void UpdateVectors(int clusterIndex)
+        private void UpdateVectors(int clusterIndex)
         {
             bool isFirstCustomer = true;
 
@@ -126,7 +123,7 @@ namespace Lab5
             }
         }
 
-        int CreateVector(int[] vector) // Создание нового кластера на основе вектора
+        private int CreateVector(int[] vector) // Создание нового кластера на основе вектора
         {
             int i = -1; // Возвращается -1, если новый кластер не создан (нет места)
 
@@ -146,7 +143,7 @@ namespace Lab5
             return i;
         }
 
-        static int OnesVector(int[] V)
+        private static int OnesVector(int[] V)
         {
             int k = 0;
             for (int j = 0; j < MaxItems; j++)
@@ -159,7 +156,7 @@ namespace Lab5
             return k;
         }
 
-        void ExecuteART1() // Основной алгоритм
+        private void ExecuteAlgorithm() // Основной алгоритм
         {
             bool exit; // Флаг завершения
             int iterationCount = 50; // Количество итераций
@@ -227,7 +224,7 @@ namespace Lab5
             while (!exit && iterationCount != 0);
         }
 
-        void ShowClusters()
+        private void ShowClusters()
         {
             for (int i = 0; i < N; i++)
             {
@@ -252,7 +249,7 @@ namespace Lab5
             }
         }
 
-        void MakeAdvise(int custoremIndex) // Даем рекомендации клиенту
+        private void GiveRecommendations(int custoremIndex) // Даем рекомендации клиенту
         {
             int best = -1; // Индекс лучшего элемента для рекомендации
             int max = 0; // Максимальное значение популярности элемента
@@ -290,12 +287,12 @@ namespace Lab5
         public void Run()
         {
             Initialize();
-            ExecuteART1();
+            ExecuteAlgorithm();
             ShowClusters();
 
             for (int customer = 0; customer < MaxClients; customer++)
             {
-                MakeAdvise(customer);
+                GiveRecommendations(customer);
             }
         }
         public static void Main()

@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Lab2
 {
@@ -83,10 +81,11 @@ namespace Lab2
 
         }
 
-        
+
 
         private static Random random = new Random();
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             double EvaluateSolution(Solution workingSolution, Solution currentSolution, double temperature)
             {
@@ -172,7 +171,7 @@ namespace Lab2
                 for (int i = 0; i < ITERATION_COUNT; i++)
                 {
                     workingSolution.Randomize();
-                    
+
                     if (workingSolution.Energy <= currentSolution.Energy)
                     {
                         currentSolution = workingSolution.DeepCopy();

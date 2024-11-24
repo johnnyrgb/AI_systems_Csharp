@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Text.Json.Nodes;
 
 namespace Lab3
 {
@@ -49,7 +47,7 @@ namespace Lab3
                     allTourLengths.Add(tourLength);
                     allTours.Add(tour);
 
-                    if (tourLength < bestLength) 
+                    if (tourLength < bestLength)
                     {
                         bestLength = tourLength;
                         bestTour = new List<int>(tour);
@@ -170,7 +168,7 @@ namespace Lab3
         {
             int numCities = 30;
             double[,] distances = JsonConvert.DeserializeObject<double[,]>(File.ReadAllText("distances.json"));
-            File.WriteAllText("distances.json", JsonConvert.SerializeObject(distances)); 
+            File.WriteAllText("distances.json", JsonConvert.SerializeObject(distances));
             var antColony = new AntColony(numCities, distances);
             var result = antColony.Solve(numAnts: 10, maxIterations: 100);
 
