@@ -170,7 +170,7 @@
 
         }
 
-        private void ExecuteART1() // Основной алгоритм
+        private void ExecuteAlgorithm() // Основной алгоритм
         {
             bool exit; // Флаг завершения
             int iterationCount = 50; // Количество итераций
@@ -312,7 +312,7 @@
         public void Run()
         {
             Initialize();
-            ExecuteART1();
+            ExecuteAlgorithm();
             ShowClusters();
 
             for (int carIndex = 0; carIndex < MaxCars; carIndex++)
