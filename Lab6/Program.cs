@@ -10,9 +10,9 @@
 
         private const int MaxNodes = 8;
         private const int MaxCars = 10; // Максимальное количество автомобилей
-        private const int MaxClusters = 3; // Максимальное количество кластеров
+        private const int MaxClusters = 4; // Максимальное количество кластеров
         private const double Beta = 1.0;
-        private const double Rho = 0.6;
+        private const double Rho = 0.9;
 
         private readonly int[][] _edges = // Матрица весов графа
         [
@@ -37,7 +37,7 @@
             [1, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 1, 0, 0],
             [0, 1, 0, 1, 0, 0, 0, 0],
-            [0, 1, 0, 1, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0, 1, 0, 0],
             [0, 1, 0, 1, 0, 1, 0, 0],
             [0, 0, 0, 1, 0, 1, 0, 0]
         ];
@@ -276,11 +276,21 @@
             Console.Write("Рекомендованный путь: ");
             while (i < _edges.Length - 1)
             {
+                
                 if (_vectorSum[_group[carIndex]][i - 1] != 0) // Проверка доступности узла для автомобиля
                 {
-                    maxFlow = maxFlow > _edges[currentNode][i] ? _edges[currentNode][i] : maxFlow;
-                    Console.Write((currentNode) + "-");
-                    currentNode = i; 
+                    if (_edges[currentNode][i] != 0)
+                    {
+                        maxFlow = maxFlow > _edges[currentNode][i] ? _edges[currentNode][i] : maxFlow;
+                        Console.Write((currentNode) + "-");
+                        currentNode = i;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{currentNode}-Нет пути-{i}");
+                        break;
+                    }
+                    
                 }
                     
                 i++;
