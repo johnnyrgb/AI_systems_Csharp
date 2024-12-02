@@ -276,7 +276,7 @@
             Console.Write("Рекомендованный путь: ");
             while (i < _edges.Length - 1)
             {
-                
+
                 if (_vectorSum[_group[carIndex]][i - 1] != 0) // Проверка доступности узла для автомобиля
                 {
                     if (_edges[currentNode][i] != 0)
@@ -290,13 +290,13 @@
                         Console.WriteLine($"{currentNode}-Нет пути-{i}");
                         break;
                     }
-                    
+
                 }
-                    
+
                 i++;
             }
 
-            
+
 
             if (_edges[currentNode][_edges.Length - 1] != 0) // Проверка последнего узла на соединение со стоком
             {
