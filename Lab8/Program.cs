@@ -218,7 +218,7 @@ namespace Lab8
                 Console.WriteLine();
             }
 
-            File.WriteAllText("matrix.json", JsonConvert.SerializeObject(matrix)); // Запись в файл
+            File.WriteAllText(@"..\..\matrix.json", JsonConvert.SerializeObject(matrix)); // Запись в файл
 
             int source = 0; // Исток
             int sink = 100 - 1;   // Сток
