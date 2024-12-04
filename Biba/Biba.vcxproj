@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7a887bb7-caa6-40ac-9677-357c3ffa6d59}</ProjectGuid>
-    <RootNamespace>Lab9</RootNamespace>
+    <ProjectGuid>{1ee7f601-9c37-4c41-a0fe-ed16484b5a7c}</ProjectGuid>
+    <RootNamespace>Biba</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Lab9</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
